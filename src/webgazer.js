@@ -253,7 +253,6 @@
     }
 
     function loop() {
-        console.log("Loop started")
         var gazeData = getPrediction();
         var elapsedTime = performance.now() - clockStart;
 
@@ -287,6 +286,9 @@
             //console.log(pred.x);
             //console.log(pred.y);
             
+            // OBS! This is where we send the stuff to the RaspberryPi
+            mangleAndSend(pred.x,pred.y);
+
             checkEyesInValidationBox();
         }
 
@@ -294,6 +296,38 @@
             //setTimeout(loop, webgazer.params.dataTimestep);
             requestAnimationFrame(loop);
         }
+    }
+
+    // OBS! Hackiness begins!
+    // Width of the area where the eye detection happens on my mac :B
+    var w = 1280;
+    // height also on my mac
+    var h = 600;
+    //Gabor's Raspberry Pi
+    var ip = "http://192.168.137.124";
+    var xhr = new XMLHttpRequest();
+
+    function mangleAndSend(coorx, coory){
+        // While nothing is detected, section is 0
+        var v = 0;
+
+        // To determine which quarter of the screen is observed
+        if (coorx < w/2 && coory < h/2 ) {
+            v = 1;
+        }
+        else if (coorx > w/2 && coory < h/2 ) {
+            v = 2;
+        }
+        else if (coorx < w/2 && coory > h/2 ) {
+            v = 3;
+        }
+        else if (coorx > w/2 && coory > h/2 ) {
+            v = 4;
+        }
+        console.log(v);
+        xhr.open("POST", ip, true);
+        //xhr.setRequestHeader("Content-Length", 8);
+        xhr.send(v);
     }
 
     /**
