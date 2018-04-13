@@ -3,6 +3,7 @@
     //strict mode for type safety
     'use strict';
 
+
     //auto invoke function to bind our own copy of window and undefined
 
     //set up namespaces for modules
@@ -34,6 +35,7 @@
     //debug control boolean
     var showGazeDot = false;
     //debug element (starts offscreen)
+    console.log("gazeDot creation");
     var gazeDot = document.createElement('div');
     gazeDot.style.position = 'fixed';
     gazeDot.style.zIndex = 99999;
@@ -45,6 +47,7 @@
     gazeDot.style.display = 'none';
     gazeDot.style.borderRadius = '100%';
     gazeDot.style.opacity = '0.7';
+    gazeDot.setAttribute("id","thegazedot")
 
     var debugVideoLoc = '';
 
@@ -241,7 +244,16 @@
     var smoothingVals = new webgazer.util.DataWindow(4);
     var k = 0;
 
+    // OBS Not used
+    function altloop() {
+        console.log(pred.x)
+        var pred = getCurrentPrediction();
+        document.getElementById("predx").innerHTML = " "+pred.x;
+        document.getElementById("predy").innerHTML = " "+pred.y;
+    }
+
     function loop() {
+        console.log("Loop started")
         var gazeData = getPrediction();
         var elapsedTime = performance.now() - clockStart;
 
@@ -269,8 +281,12 @@
               }
             }
             gazeDot.style.transform = 'translate3d(' + pred.x + 'px,' + pred.y + 'px,0)';
-
             //Check that the eyes are inside of the validation box
+            document.getElementById("predx").innerHTML = " "+pred.x;
+            document.getElementById("predy").innerHTML = " "+pred.y;
+            //console.log(pred.x);
+            //console.log(pred.y);
+            
             checkEyesInValidationBox();
         }
 

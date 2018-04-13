@@ -69,63 +69,65 @@ $(document).ready(function(){
       if (PointCalibrate >= 9){ // last point is calibrated
         var accuracyLabel = "<a>Calibrated!</a>";
        document.getElementById("Accuracy").innerHTML = accuracyLabel; 
-       webgazer.end();
+       //webgazer.end();
+       //document.getElementById("hack_field").innerHTML ="<a>prediction.x y prediction.y;
        
-
-        window.location.href='/taskinstructions.html'
+        //OBS! At this point all the calibration points have been pushed!
+        // Perhaps do something here, like start actually sending stuff?
+        //window.location.href='/taskinstructions.html'
       }
 
-    //   if (PointCalibrate >= 9){ // last point is calibrated
+       if (PointCalibrate >= 9){ // last point is calibrated
     //         //using jquery to grab every element in Calibration class and hide them except the middle point.
-    //         $(".Calibration").hide();
-    //         $("#Pt5").show();
+             $(".Calibration").hide();
+             $("#Pt5").show();
 
     //         // clears the canvas
-    //         var canvas = document.getElementById("plotting_canvas");
-    //         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+             var canvas = document.getElementById("plotting_canvas");
+             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 
     //         // notification for the measurement process
-    //         swal({
-    //           title: "Calculating measurement",
-    //           text: "Please don't move your mouse & stare at the middle dot for the next 5 seconds. This will allow us to calculate the accuracy of our predictions.",
-    //           closeOnEsc: false,
-    //           allowOutsideClick: false,
-    //           closeModal: true
-    //         }).then( isConfirm => {
+             swal({
+               title: "Calculating measurement",
+               text: "Please don't move your mouse & stare at the middle dot for the next 5 seconds. This will allow us to calculate the accuracy of our predictions.",
+               closeOnEsc: false,
+               allowOutsideClick: false,
+               closeModal: true
+             }).then( isConfirm => {
 
     //             // makes the variables true for 5 seconds & plots the points
-    //             $(document).ready(function(){
+                 $(document).ready(function(){
 
-    //               store_points_variable(); // start storing the prediction points
+                   store_points_variable(); // start storing the prediction points
 
-    //               sleep(5000).then(() => {
-    //                   stop_storing_points_variable(); // stop storing the prediction points
-    //                   var past50 = get_points() // retrieve the stored points
-    //                   var precision_measurement = calculatePrecision(past50);
-    //                   var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
-    //                   document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
-    //                   swal({
-    //                     title: "Your accuracy measure is " + precision_measurement + "%",
-    //                     allowOutsideClick: false,
-    //                     buttons: {
-    //                       cancel: "Recalibrate",
-    //                       confirm: true,
-    //                     }
-    //                   }).then(isConfirm => {
-    //                       if (isConfirm){
+                   sleep(5000).then(() => {
+                       stop_storing_points_variable(); // stop storing the prediction points
+                       var past50 = get_points() // retrieve the stored points
+                       var precision_measurement = calculatePrecision(past50);
+                       var accuracyLabel = "<a>Accuracy | "+precision_measurement+"%</a>";
+                       document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
+                       swal({
+                         title: "Your accuracy measure is " + precision_measurement + "%",
+                         allowOutsideClick: false,
+                         buttons: {
+                           cancel: "Recalibrate",
+                           confirm: true,
+                         }
+                       }).then(isConfirm => {
+                           if (isConfirm){
     //                         //clear the calibration & hide the last middle button
-    //                         ClearCanvas();
-    //                       } else {
+                             ClearCanvas();
+                           } else {
     //                         //use restart function to restart the calibration
-    //                         ClearCalibration();
-    //                         ClearCanvas();
-    //                         ShowCalibrationPoint();
-    //                       }
-    //                   });
-    //               });
-    //             });
-    //         });
-    //       }
+                             ClearCalibration();
+                             ClearCanvas();
+                             ShowCalibrationPoint();
+                           }
+                       });
+                   });
+                 });
+             });
+           }
     });
 });
 

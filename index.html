@@ -41,6 +41,10 @@ Instructions on use can be found in the README repository.
                 <!-- Accuracy -->
                 <li id="Accuracy"><a>Not yet Calibrated</a></li>
                 <li onclick="Restart()"><a href="#">Recalibrate</a></li>
+                <li onclick="webgazer.begin()"><a>Start</a></li>
+                <li onclick="webgazer.end()"><a>Stop</a></li>
+                <li><p id="predx">X</p></li>
+                <li><p id="predy">Y</p></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li><button class="helpBtn" data-toggle="modal" data-target="#helpModal"><a href="#" data-toggle="modal" data-targert="#"><span class="glyphicon glyphicon-cog"></span> Help</a></li>
@@ -78,7 +82,6 @@ Instructions on use can be found in the README repository.
 
           </div>
         </div>
-
         <!-- Latest compiled JavaScript -->
         <script src="./js/resize_canvas.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
